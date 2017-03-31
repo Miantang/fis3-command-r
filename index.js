@@ -45,9 +45,14 @@ exports.run = function(argv, cli, env) {
 
   var app = require('./lib/chains.js')();
 
+  if(argv._[1]) {
+    fis.project.currentMedia(argv._[1]);
+  }
+
   if(options.useMock) {
     app.use(rapxMock);
   }
+  app.run(options);
 
   // run it.
   var newArgv = _.assign({}, argv)
@@ -55,8 +60,9 @@ exports.run = function(argv, cli, env) {
   delete newArgv.m
   delete newArgv.mock
   delete newArgv.init
+
   fis.cli.run(newArgv, env)
-  app.run(options);
+
 };
 
 function validate(argv) {
