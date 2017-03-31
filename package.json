@@ -1,0 +1,21 @@
+{
+  "name": "fis3-command-r",
+  "description": "fis release command.",
+  "version": "1.3.12",
+  "author": "FIS Team <fis@baidu.com>",
+  "homepage": "http://fis.baidu.com/",
+  "keywords": [
+    "fis"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fex-team/fis3-command-release.git"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/ut --recursive"
+  }
+}
