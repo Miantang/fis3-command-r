@@ -1,3 +1,6 @@
+var path = require('path');
+var fs = require('fs');
+var stream = process.stdout;
 var _ = fis.util;
 var time = require('./lib/time.js');
 // fis.log.level = fis.log.L_DEBUG
@@ -7,17 +10,8 @@ exports.name = 'r [media name]';
 exports.desc = 'build and deploy your project';
 exports.options = {
   '-h, --help': 'print this help message',
-  '-d, --dest <path>': 'release output destination',
-  '-l, --lint': 'with lint',
-  '-w, --watch': 'monitor the changes of project',
-  '-L, --live': 'automatically reload your browser',
-  '-c, --clean': 'clean compile cache',
-  '-u, --unique': 'use unique compile caching',
-  '-r, --root <path>': 'specify project root',
-  '-f, --file <filename>': 'specify the file path of `fis-conf.js`',
   '-m, --mock': 'use rapx mock insertion',
-  '--no-color': 'disable colored output',
-  '--verbose': 'enable verbose mode'
+  '--init': '初始化一个rapx-mock.conf'
 };
 
 exports.run = function(argv, cli, env) {
@@ -38,8 +32,16 @@ exports.run = function(argv, cli, env) {
     unique: !!(argv.unique || argv.u),
     useLint: !!(argv.lint || argv.l),
     useMock: !!(argv.mock || argv.m),
+    initConf: !!argv.init,
     verbose: !!argv.verbose
   };
+
+  if(options.initConf) {
+    var confContent = fs.readFileSync( path.resolve(__dirname, './vendor/rapx-mock.conf') ).toString()
+     _.write(_(fis.project.getProjectPath(), '/rapx-mock.conf'), confContent);
+     stream.write('\n [RAPX-Mock]'.green + ' init file rapx-mock.conf. \n');
+     return;
+  }
 
   var app = require('./lib/chains.js')();
 
@@ -52,6 +54,7 @@ exports.run = function(argv, cli, env) {
   newArgv._[0] = 'release'
   delete newArgv.m
   delete newArgv.mock
+  delete newArgv.init
   fis.cli.run(newArgv, env)
   app.run(options);
 };
@@ -61,7 +64,7 @@ function validate(argv) {
     fis.log.error('Unregconized `%s`, please run `%s release --help`', argv._.slice(2).join(' '), fis.cli.name);
   }
 
-  var allowed = ['_', 'dest', 'd', 'lint', 'l', 'watch', 'w', 'live', 'L', 'clean', 'c', 'unique', 'u', 'verbose', 'color', 'root', 'r', 'f', 'file', 'child-flag', 'm', 'mock'];
+  var allowed = ['_', 'dest', 'd', 'lint', 'l', 'watch', 'w', 'live', 'L', 'clean', 'c', 'unique', 'u', 'verbose', 'color', 'root', 'r', 'f', 'file', 'child-flag', 'm', 'mock', 'init'];
 
   Object.keys(argv).forEach(function(k) {
     if (!~allowed.indexOf(k)) {

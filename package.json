@@ -1,21 +1,18 @@
 {
   "name": "fis3-command-r",
-  "description": "fis release command.",
-  "version": "1.3.12",
-  "author": "FIS Team <fis@baidu.com>",
-  "homepage": "http://fis.baidu.com/",
+  "description": "fis r command extend command release.",
+  "version": "1.0.1",
+  "author": "Miantang",
+  "homepage": "https://github.com/Miantang/fis3-command-r",
   "keywords": [
     "fis"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/fex-team/fis3-command-release.git"
+    "url": "https://github.com/Miantang/fis3-command-r.git"
   },
   "engines": {
     "node": ">= 0.8.0"
   },
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha test/ut --recursive"
-  }
+  "main": "index.js"
 }
