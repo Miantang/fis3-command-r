@@ -10,7 +10,8 @@ exports.name = 'r [media name]';
 exports.desc = 'build and deploy your project';
 exports.options = {
   '-h, --help': 'print this help message',
-  '-m, --mock': 'use rapx mock insertion',
+  '-m, --mock': '使用rapx的mock功能，并替换相关smarty plugin',
+  '--reset': '重置目标环境的相关smarty plugin(需要搭配-m一起使用)',
   '--init': '初始化一个rapx-mock.conf'
 };
 
@@ -33,6 +34,7 @@ exports.run = function(argv, cli, env) {
     useLint: !!(argv.lint || argv.l),
     useMock: !!(argv.mock || argv.m),
     initConf: !!argv.init,
+    resetPlugin: !!argv.reset,
     verbose: !!argv.verbose
   };
 
@@ -50,6 +52,10 @@ exports.run = function(argv, cli, env) {
   }
 
   if(options.useMock) {
+      if(!_.exists(_(fis.project.getProjectPath(), '/rapx-mock.conf')) ) {
+          stream.write('\n [RAPX-Mock]'.green + ' not existed rapx-mock.conf! Please run fis3 r --init. \n')
+          return
+      }
     app.use(rapxMock);
   }
   app.run(options);
@@ -60,6 +66,7 @@ exports.run = function(argv, cli, env) {
   delete newArgv.m
   delete newArgv.mock
   delete newArgv.init
+  delete newArgv.reset
 
   fis.cli.run(newArgv, env)
 
@@ -70,7 +77,9 @@ function validate(argv) {
     fis.log.error('Unregconized `%s`, please run `%s release --help`', argv._.slice(2).join(' '), fis.cli.name);
   }
 
-  var allowed = ['_', 'dest', 'd', 'lint', 'l', 'watch', 'w', 'live', 'L', 'clean', 'c', 'unique', 'u', 'verbose', 'color', 'root', 'r', 'f', 'file', 'child-flag', 'm', 'mock', 'init'];
+  var allowed = ['_', 'dest', 'd', 'lint', 'l', 'watch', 'w', 'live', 'L', 'clean', 'c',
+                    'unique', 'u', 'verbose', 'color', 'root', 'r', 'f', 'file', 'child-flag',
+                    'm', 'mock', 'init', 'reset'];
 
   Object.keys(argv).forEach(function(k) {
     if (!~allowed.indexOf(k)) {
