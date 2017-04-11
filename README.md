@@ -1,4 +1,4 @@
-# fis-command-r
+# fis3-command-r
 
 ## 安装
 
@@ -13,8 +13,9 @@
 
      Options:
 
-       -m, --mock            读取根木录下rapx-mock.conf，根据相应正则，动态插入插件代码到 指定tpl 中
+       -m, --mock       读取根木录下rapx-mock.conf，根据相应正则，动态插入插件代码到 指定tpl 中
       --init            在根目录下，初始化一个rapx-mock.conf模板文件
+      --reset           重置被替换的smarty plugin（结合参数-m）
 
 ## rapx-mock.conf规则
 
