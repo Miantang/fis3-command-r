@@ -5,6 +5,7 @@ var _ = fis.util;
 var time = require('./lib/time.js');
 // fis.log.level = fis.log.L_DEBUG
 var rapxMock = require('./lib/rapx-mock.js');
+var delMockCache = require('./lib/del-mock-cache.js');
 
 exports.name = 'r [media name]';
 exports.desc = 'build and deploy your project';
@@ -57,7 +58,13 @@ exports.run = function(argv, cli, env) {
           return
       }
     app.use(rapxMock);
+  } else {
+    if(!_.exists(_(fis.project.getProjectPath(), '/rapx-mock.conf')) ) {
+        stream.write('\n [RAPX-Mock]'.green + ' not existed rapx-mock.conf! Please run fis3 r --init. \n')
+    }
+    app.use(delMockCache)
   }
+
   app.run(options);
 
   // run it.
