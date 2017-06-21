@@ -8,7 +8,7 @@ var rapxMock = require('./lib/rapx-mock.js');
 var delMockCache = require('./lib/del-mock-cache.js');
 
 exports.name = 'r [media name]';
-exports.desc = 'build and deploy your project';
+exports.desc = 'build and deploy your rapx-mock project';
 exports.options = {
   '-h, --help': 'print this help message',
   '-m, --mock': '使用rapx的mock功能，并替换相关smarty plugin',
@@ -26,7 +26,7 @@ exports.run = function(argv, cli, env) {
 
   // normalize options
   var options = {
-    dest: argv.dest || argv.d || 'preview',
+    dest: argv.dest || argv.d,
     root: !!(argv.r || argv.root),
     watch: !!(argv.watch || argv.w),
     live: !!(argv.live || argv.L),
