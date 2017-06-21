@@ -1,5 +1,11 @@
 # fis3-command-r
 
+继承fis3 release，新增参数-m。在FIS发布(deploy)过程中，读取rapx-mock.conf按一定的插入规则对相应的模板文件插入Mock插件代码
+
+## 优势
+
+可定制化地统一管理项目工程目录下的mock规则，相比直接插入mock规则代码，对业务代码无污染
+
 ## 开始使用
 
 *仅限百度外卖内部结合RAPX使用*
@@ -13,10 +19,6 @@
 `fis3 r --init`
 
 3. 编写mock规则，使用fis3 r [media name] -m (fis3 r 是fis3 release的继承版，新增参数-m), 读取相应的rapx-mock.conf配置，完成mock代码的插入
-
-## 优势
-
-可定制化地统一管理项目工程目录下的mock规则，相比直接插入mock规则代码，对业务代码无污染
 
 ## 原理
 
@@ -35,7 +37,7 @@
 
 ### 可接受的操作符
 
-mock, vue,vueResource, axios, insertFileExt, replace
+mock, vue,vueResource, axios, insertFileExt, replace。其中replace与insertFileExt有默认值，可不设置
 
 |操作符|语法||含义/参数释义|默认值|
 |----|------|----|----|---|
