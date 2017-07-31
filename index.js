@@ -36,6 +36,7 @@ exports.run = function(argv, cli, env) {
     useMock: !!(argv.mock || argv.m),
     initConf: !!argv.init,
     resetPlugin: !!argv.reset,
+    notFekey: cli.name !== 'fekey',
     verbose: !!argv.verbose
   };
 
@@ -51,7 +52,6 @@ exports.run = function(argv, cli, env) {
   if(argv._[1]) {
     fis.project.currentMedia(argv._[1]);
   }
-
   if(options.useMock) {
       if(!_.exists(_(fis.project.getProjectPath(), '/rapx-mock.conf')) ) {
           stream.write('\n [RAPX-Mock]'.green + ' not existed rapx-mock.conf! Please run fis3 r --init. \n')
@@ -74,8 +74,14 @@ exports.run = function(argv, cli, env) {
   delete newArgv.mock
   delete newArgv.init
   delete newArgv.reset
-
-  fis.cli.run(newArgv, env)
+  
+  if(cli.name !== 'fekey') {
+    // cli === fis.cli : true
+    fis.cli.run(newArgv, env)
+  } else {
+    // console.log('fekey k_cli', global.fekey.k_cli);
+    fekey.k_cli.command('release', newArgv, env)
+  }
 
 };
 

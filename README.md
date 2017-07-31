@@ -8,7 +8,7 @@
 
 ## 开始使用
 
-*仅限百度外卖内部结合RAPX使用*
+*仅限百度外卖内部结合RAPX使用，兼容fekey*
 
 1. 全局安装插件
 
@@ -17,6 +17,10 @@
 2. 在工程目录下初始化生成一个rapx-mock.conf
 
 `fis3 r --init`
+
+或
+
+`fekey r --init`
 
 3. 编写mock规则，使用fis3 r [media name] -m (fis3 r 是fis3 release的继承版，新增参数-m), 读取相应的rapx-mock.conf配置，完成mock代码的插入
 
