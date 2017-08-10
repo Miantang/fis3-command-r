@@ -49,6 +49,7 @@ mock, vue,vueResource, axios, insertFileExt, replace。其中replace与insertFil
 | ||{tplPath} |需要插入的tpl文件路径, 如 “/page/index.tpl”||
 | ||{mockCode}|从RAPX平台上复制下来的Mock插件代码，如“{%require src="htt://avalon.inwaimai.baidu.com:8888/rap.plugin.js?projectId=1" type="js"%}”||
 |**vue**|vue {vuePath}||如果需要支持vueResource的Mock扩展，需要将其模块地址声明于此||
+|**pluginPath**|pluginPath {path}||如果项目不支持require src的fis3-require插件，并且fis-conf未声明plugin的远端推送地址，需在此指定||
 |**vueResource**|vueResource {vueResourcePath}||如果需要支持vueResource的Mock扩展，需要将其模块地址声明于此（与vue声明一起）||
 |**axios**|axios {axiosPath}||如果需要支持axios的Mock扩展，需要将其模块地址声明于此（与vue声明一起）||
 | || {axiosPath}|mod.js require 引入的模块地址 如: nerve_common:static/js/axios.js||
@@ -61,6 +62,7 @@ mock, vue,vueResource, axios, insertFileExt, replace。其中replace与insertFil
 
 ## 示例
 ```pyhton
+# pluginPath /home/map/odp_xxx/php/phplib/ext/smarty
 # replace (\{%\s*block\s*name\=[\"|\']top-head-extend[\"|\']%\})((?:(?!\{%\/\s*block).|\n)*)(\{%\/\s*block\s*%\})
 # insertFileExt .tpl .html .xxx
 # mock /page/index.tpl {%require src="http://avalon.inwaimai.baidu.com:8888/rap.plugin.js?projectId=1" type="js"%}

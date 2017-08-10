@@ -1,7 +1,7 @@
 {
   "name": "fis3-command-r",
   "description": "fis/fekey r command extend command release.",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": "Miantang",
   "homepage": "https://github.com/Miantang/fis3-command-r",
   "keywords": [
